@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Miért ❤️</title>
+<style>
+body{
+	margin:0;
+	font-family:'Segoe UI', cursive;
+	background: linear-gradient(135deg,#ffccd5,#ff4d6d);
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	min-height:100vh;
+	padding:20px;
+	color:white;
+	overflow-x:hidden;
+}
+.love-box{
+	background:rgba(255,255,255,0.15);
+	backdrop-filter:blur(10px);
+	padding:40px;
+	border-radius:25px;
+	max-width:700px;
+	box-shadow:0 15px 35px rgba(0,0,0,0.3);
+	animation:fadeIn 2s ease;
+	text-align:center;
+}
+h1{
+	font-size:2.4rem;
+	margin-bottom:25px;
+	text-shadow:0 4px 10px rgba(0,0,0,0.4);
+}
+p{
+	font-size:1.2rem;
+	line-height:1.8;
+	margin-bottom:20px;
+}
+.highlight{
+	font-size:1.4rem;
+	font-weight:600;
+	color:#ffe0e0;
+}
+.back-btn{
+	display:block;
+	text-align:center;
+	margin-top:30px;
+	text-decoration:none;
+	color:white;
+	padding:10px 20px;
+	border-radius:20px;
+	background:rgba(0,0,0,0.2);
+	transition:0.3s;
+}
+.back-btn:hover{
+	background:rgba(0,0,0,0.35);
+	transform:scale(1.05);
+}
+
+/* ANIMÁCIÓ */
+@keyframes fadeIn{
+	from{opacity:0; transform:translateY(30px);}
+	to{opacity:1; transform:translateY(0);}
+}
+</style>
+</head>
+<body>
+
+<div class="love-box">
+	<h1>Miért téged választottalak? ❤️</h1>
+	<p>Mert minden mosolyod felragyogtatja a napomat, és minden nevetésed belengi a szívemet. Nem csak szeretlek, hanem csodállak minden egyes pillanatban.</p>
+	<p>Mert melletted <span class="highlight">teljesen önmagam lehetek</span>, minden hibámmal együtt, és mégis elfogadsz úgy, ahogy vagyok.</p>
+	<p>Mert a tekintetedben találom a nyugalmat, a kezedben a biztonságot, és a szavaidban a szeretet minden rezdülését.</p>
+	<p>Mert <span class="highlight">te vagy az, akivel minden perc értelmet nyer</span>, és akivel a jövő minden napja izgalmasnak és szépnek tűnik.</p>
+	<a href="index.html" class="back-btn">Vissza ❤️</a>
+</div>
+
+</body>
+</html>

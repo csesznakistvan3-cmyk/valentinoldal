@@ -1,0 +1,172 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentin nap ❤️</title>
+<style>
+/* ===== ALAP ===== */
+body{
+	margin:0;
+	font-family:'Segoe UI', cursive;
+	background: linear-gradient(135deg,#ffccd5,#ff4d6d);
+	display:flex;
+	flex-direction:column;
+	align-items:center;
+	min-height:100vh;
+	overflow-x:hidden;
+	color:white;
+}
+/* ===== LEBEGŐ SZÍVEK ===== */
+.hearts{
+	position:fixed;
+	top:0; left:0;
+	width:100%; height:100%;
+	pointer-events:none; overflow:hidden; z-index:0;
+}
+.heart{
+	position:absolute; bottom:-50px;
+	animation: floatUp linear forwards;
+	opacity:0.9;
+}
+@keyframes floatUp{
+	0%{transform:translateY(0) scale(1);opacity:0.9;}
+	100%{transform:translateY(-110vh) scale(1.4);opacity:0;}
+}
+/* ===== NAVBAR ===== */
+.navbar{
+	width:100%; display:flex; justify-content:space-between; align-items:center;
+	padding:1rem 2rem; background:linear-gradient(90deg,#c9184a,#800f2f);
+	box-shadow:0 4px 15px rgba(0,0,0,0.3); position:relative; z-index:2;
+}
+.brand-title{ font-size:2rem; font-weight:700; }
+.navbar-links ul{ margin:0; padding:0; display:flex; gap:1rem; }
+.navbar-links li{ list-style:none; }
+.navbar-links a{
+	text-decoration:none; color:white; padding:0.6rem 1rem;
+	border-radius:8px; transition:0.3s;
+}
+.navbar-links a:hover{ background:rgba(255,255,255,0.2); transform:scale(1.05); }
+/* ===== CÍM ===== */
+h1{ color:white; margin-top:2rem; text-shadow:0 4px 10px rgba(0,0,0,0.4); position:relative; z-index:2; text-align:center; }
+/* ===== GALÉRIA ===== */
+.gallery{
+	display:grid; grid-template-columns: repeat(3, 1fr);
+	gap:25px; width:85%; margin:3rem auto; position:relative; z-index:2;
+}
+.gallery-item{ overflow:hidden; border-radius:20px; box-shadow:0 10px 25px rgba(0,0,0,0.3); cursor:pointer; }
+.gallery-item img{ width:100%; height:300px; object-fit:cover; transition:0.4s; }
+@media (hover:hover){ .gallery-item:hover img{ transform:scale(1.15); filter: brightness(1.1); } }
+/* ===== LIGHTBOX ===== */
+.lightbox{
+	display:none; position:fixed; z-index:999; left:0; top:0;
+	width:100%; height:100%; background:rgba(0,0,0,0.95);
+	justify-content:center; align-items:center; flex-direction:column;
+}
+.lightbox img{
+	max-width:90%; max-height:80%; border-radius:15px;
+	box-shadow:0 0 30px rgba(255,255,255,0.3);
+	animation:zoomIn 0.3s ease;
+}
+@keyframes zoomIn{ from{transform:scale(0.8);opacity:0;} to{transform:scale(1);opacity:1;} }
+.close{ position:absolute; top:20px; right:30px; color:white; font-size:40px; cursor:pointer; }
+.arrow{ position:absolute; top:50%; transform:translateY(-50%); font-size:50px; color:white;
+	cursor:pointer; user-select:none; padding:20px; }
+.left{ left:10px; } .right{ right:10px; }
+/* ===== TYPING SZÖVEG ===== */
+.typing{ border-right:.15em solid white; white-space:nowrap; overflow:hidden; max-width:90%; margin:auto; text-align:center; font-size:1.8rem; margin-top:1rem; z-index:2; position:relative; }
+/* ===== RESZPONZÍV ===== */
+@media(max-width:900px){ .gallery{ grid-template-columns: repeat(2,1fr); } }
+@media(max-width:600px){ .gallery{ grid-template-columns:1fr;} .gallery-item img{ height:250px; } }
+</style>
+</head>
+<body>
+
+<div class="hearts"></div>
+
+<div class="navbar">
+	<div class="brand-title">❤️ Valentin nap ❤️</div>
+	<div class="navbar-links">
+		<ul>
+			<li><a href="miert.html">Miért</a></li>
+			<li><a href="hiany.html">Hiányod</a></li>
+			<li><a href="szeretetem.html">Szeretetem</a></li>
+			<li><a href="gondolatok.html">Gondolataim</a></li>
+			<li><a href="hibaim.html">Hibáim</a></li>
+			<li><a href="vers.html">Vers</a></li>
+			<li><a href="tortenetek.html">Történeteink</a></li>
+		</ul>
+	</div>
+</div>
+
+<h1 id="typed-text" class="typing"></h1>
+
+<div class="gallery">
+	<div class="gallery-item"><img src="kep1.jpg" onclick="openLightbox(0)"></div>
+	<div class="gallery-item"><img src="kep2.jpg" onclick="openLightbox(1)"></div>
+	<div class="gallery-item"><img src="kep3.jpg" onclick="openLightbox(2)"></div>
+	<div class="gallery-item"><img src="kep4.jpg" onclick="openLightbox(3)"></div>
+	<div class="gallery-item"><img src="kep5.jpg" onclick="openLightbox(4)"></div>
+	<div class="gallery-item"><img src="kep6.jpg" onclick="openLightbox(5)"></div>
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" class="lightbox">
+	<span class="close" onclick="closeLightbox()">&times;</span>
+	<span class="arrow left" onclick="prevImage()">❮</span>
+	<img id="lightbox-img">
+	<span class="arrow right" onclick="nextImage()">❯</span>
+</div>
+
+<script>
+/* ===== LEBEGŐ SZÍVEK ===== */
+function createHeart(){
+	const heart = document.createElement("div");
+	heart.classList.add("heart");
+	const hearts = ["❤️","💖","💕","💗","💘"];
+	heart.innerHTML = hearts[Math.floor(Math.random()*hearts.length)];
+	heart.style.left = Math.random() * 100 + "vw";
+	heart.style.fontSize = (15 + Math.random()*35) + "px";
+	heart.style.animationDuration = (5 + Math.random()*8) + "s";
+	document.querySelector(".hearts").appendChild(heart);
+	setTimeout(()=>heart.remove(),12000);
+}
+setInterval(createHeart,300);
+
+/* ===== LIGHTBOX LOGIKA ===== */
+const images = ["kep1.jpg","kep2.jpg","kep3.jpg","kep4.jpg","kep5.jpg","kep6.jpg"];
+let currentIndex = 0;
+function openLightbox(index){
+	currentIndex=index;
+	document.getElementById("lightbox-img").src = images[currentIndex];
+	document.getElementById("lightbox").style.display="flex";
+}
+function closeLightbox(){ document.getElementById("lightbox").style.display="none"; }
+function nextImage(){ currentIndex=(currentIndex+1)%images.length; document.getElementById("lightbox-img").src = images[currentIndex]; }
+function prevImage(){ currentIndex=(currentIndex-1+images.length)%images.length; document.getElementById("lightbox-img").src = images[currentIndex]; }
+/* ESC & nyilak */
+document.addEventListener("keydown",function(e){
+	if(e.key==="Escape") closeLightbox();
+	if(e.key==="ArrowRight") nextImage();
+	if(e.key==="ArrowLeft") prevImage();
+});
+/* SWIPE mobilra */
+let startX=0;
+document.getElementById("lightbox").addEventListener("touchstart", e=>{ startX=e.touches[0].clientX; });
+document.getElementById("lightbox").addEventListener("touchend", e=>{
+	let endX=e.changedTouches[0].clientX;
+	if(startX-endX>50) nextImage();
+	if(endX-startX>50) prevImage();
+});
+
+/* ===== GÉPELOS SZÖVEG ===== */
+const text = "Üdvözöllek a mi Valentin-napi oldalunkon! Fedezd fel a képeket és történeteinket ❤️";
+let idx=0;
+const typed=document.getElementById('typed-text');
+function type(){ if(idx<text.length){ typed.textContent+=text[idx]; idx++; setTimeout(type,50);} }
+type();
+</script>
+
+</body>
+</html>
